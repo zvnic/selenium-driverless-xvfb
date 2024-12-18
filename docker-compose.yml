@@ -1,0 +1,24 @@
+# docker-compose.yml
+version: '3.9'
+
+services:
+  selenium_app:
+    build: .
+    container_name: selenium_app
+    environment:
+      - DISPLAY=:99
+    volumes:
+      - .:/app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - xvfb
+
+  xvfb:
+    image: selenium/standalone-chrome
+    container_name: xvfb
+    shm_size: 2g
+    environment:
+      - DISPLAY=:99
+    ports:
+      - "4444:4444"
